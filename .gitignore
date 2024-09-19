@@ -1,0 +1,35 @@
+# Python specific
+*.pyc
+__pycache__/
+*/__pycache__/
+*.pyo
+*.pyd
+
+# Django specific
+db.sqlite3
+media/
+staticfiles/
+
+# Environment variables
+.env
+
+# Virtual environments
+venv/
+env/
+
+# IDE specific
+.vscode/
+.idea/
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+.coverage
+
+# Logs
+*.log
+
+# Migrations
+*/migrations/*
