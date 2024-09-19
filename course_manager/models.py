@@ -25,7 +25,7 @@ class Course(models.Model):
     )
     duration_hours = models.IntegerField()
     # instructor = models.ForeignKey(User, on_delete=models.CASCADE)  # Assuming User model for instructors
-    prerequisites = ArrayField(models.CharField(max_length=50), blank=True)  # Using JSONField for a list of strings
+    prerequisites = ArrayField(models.CharField(max_length=50), blank=True, null=True)  # Using JSONField for a list of strings
     tags = ArrayField(models.CharField(max_length=50), blank=True)  # Using ArrayField for a list of tags
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
