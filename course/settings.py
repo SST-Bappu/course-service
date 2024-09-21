@@ -77,6 +77,7 @@ REST_FRAMEWORK = {
         'course.middlewares.jwt_auth.CustomJWTAuthentication'
     ],
     'EXCEPTION_HANDLER': 'course.middlewares.exception_handler.custom_exception_handler',
+    
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
     #     'rest_framework_simplejwt.authentication.JWTAuthentication',
     # ],
