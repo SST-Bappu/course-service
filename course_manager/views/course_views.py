@@ -51,3 +51,4 @@ class CourseView(APIView):
                 return Response(response, status=status.HTTP_201_CREATED)
         except Exception as e:
             raise ValidationError('Error: ' + str(e))
+    
