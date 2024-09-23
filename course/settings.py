@@ -44,7 +44,8 @@ IMPORTED_APPS = [
 
 # Apps created in this project
 PROJECT_APPS = [
-    'course_manager'
+    'course_manager',
+    'recommender'
 ]
 DEFAULT_APPS = [
     # 'django.contrib.admin',

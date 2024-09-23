@@ -16,11 +16,11 @@ class Command(BaseCommand):
         self.stdout.write("Starting model training...")
 
         # Step 1: Extract Data
-        enrollments = Enrollment.objects.all().values('user_id', 'course_id')
+        enrollments = Enrollment.objects.all().values('user', 'course_id')
         enrollments_df = pd.DataFrame(enrollments)
         enrollments_df['rating'] = 1  # Implicit feedback
 
-        views = CourseView.objects.all().values('user_id', 'course_id')
+        views = CourseView.objects.all().values('user', 'course_id')
         views_df = pd.DataFrame(views)
         views_df['rating'] = 0.5  # Less weight for views
 
@@ -28,11 +28,11 @@ class Command(BaseCommand):
         interactions_df = pd.concat([enrollments_df, views_df], ignore_index=True)
 
         # Aggregate ratings
-        interactions_agg = interactions_df.groupby(['user_id', 'course_id']).agg({'rating': 'max'}).reset_index()
+        interactions_agg = interactions_df.groupby(['user', 'course_id']).agg({'rating': 'max'}).reset_index()
 
         # Step 2: Prepare Data for Surprise
         reader = Reader(rating_scale=(0.5, 1))
-        data = Dataset.load_from_df(interactions_agg[['user_id', 'course_id', 'rating']], reader)
+        data = Dataset.load_from_df(interactions_agg[['user', 'course_id', 'rating']], reader)
 
         # Step 3: Choose and Train the Model
         algo = SVD()
@@ -45,7 +45,7 @@ class Command(BaseCommand):
         algo.fit(trainset)
 
         # Step 4: Save the Trained Model
-        model_path = os.path.join(settings.BASE_DIR, 'recommender_model.pkl')
+        model_path = os.path.join(settings.BASE_DIR, 'recommender/ml_models/recommender_model.pkl')
         with open(model_path, 'wb') as f:
             pickle.dump(algo, f)
 
